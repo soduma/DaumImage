@@ -10,6 +10,8 @@ import SnapKit
 import SwiftUI
 
 class SearchViewController: UIViewController {
+    var timer = Timer()
+    
     private lazy var searchLabel: UILabel = {
         let label = UILabel()
         label.text = "Brandi"
@@ -26,33 +28,23 @@ class SearchViewController: UIViewController {
         return bar
     }()
     
-    private lazy var searchButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("검색", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .label
-        button.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layout()
     }
     
-    @objc func tapSearchButton() {
-        navigationController?.pushViewController(ImageViewController(), animated: true)
+    @objc func timerCheck() {
+        if timer.userInfo != nil {
+            guard let searchText = timer.userInfo as? String else { return }
+            print("gdgd\(searchText)")
+            navigationController?.pushViewController(ImageViewController(keyword: searchText), animated: true)
+        }
+        timer.invalidate()
     }
     
     private func layout() {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.addArrangedSubview(searchBar)
-        stackView.addArrangedSubview(searchButton)
-        
-        [searchLabel, stackView]
+        [searchLabel, searchBar]
             .forEach { view.addSubview($0) }
         
         searchLabel.snp.makeConstraints {
@@ -60,31 +52,17 @@ class SearchViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(searchLabel.snp.bottom)
-            $0.leading.equalToSuperview().inset(10)
-            $0.trailing.equalToSuperview().inset(10)
-        }
-        
-        searchButton.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(10)
-            $0.trailing.equalToSuperview()
-            $0.width.equalTo(60)
-        }
-        
         searchBar.snp.makeConstraints {
-            $0.top.leading.bottom.equalToSuperview()
-            $0.trailing.equalTo(searchButton.snp.leading)
+            $0.top.equalTo(searchLabel.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        print(searchBar.text)
-//    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print(searchBar.text)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        print(searchText)
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCheck), userInfo: searchText, repeats: false)
     }
 }

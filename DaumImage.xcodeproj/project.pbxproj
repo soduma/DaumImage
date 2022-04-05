@@ -10,7 +10,6 @@
 		A090783527FB23AF008A8201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783427FB23AF008A8201 /* AppDelegate.swift */; };
 		A090783727FB23AF008A8201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783627FB23AF008A8201 /* SceneDelegate.swift */; };
 		A090783927FB23AF008A8201 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783827FB23AF008A8201 /* ImageViewController.swift */; };
-		A090783C27FB23AF008A8201 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A090783A27FB23AF008A8201 /* Main.storyboard */; };
 		A090783E27FB23B1008A8201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A090783D27FB23B1008A8201 /* Assets.xcassets */; };
 		A090784127FB23B1008A8201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A090783F27FB23B1008A8201 /* LaunchScreen.storyboard */; };
 		A090784927FB2499008A8201 /* DaumAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090784827FB2498008A8201 /* DaumAPIResponse.swift */; };
@@ -27,7 +26,6 @@
 		A090783427FB23AF008A8201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A090783627FB23AF008A8201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A090783827FB23AF008A8201 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		A090783B27FB23AF008A8201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A090783D27FB23B1008A8201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A090784027FB23B1008A8201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A090784227FB23B1008A8201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				A090785A27FBF7E7008A8201 /* Model */,
 				A090785B27FBF7ED008A8201 /* Manager */,
 				A090785927FBF7A3008A8201 /* Scenes */,
-				A090783A27FB23AF008A8201 /* Main.storyboard */,
 				A090783D27FB23B1008A8201 /* Assets.xcassets */,
 				A090783F27FB23B1008A8201 /* LaunchScreen.storyboard */,
 				A090784227FB23B1008A8201 /* Info.plist */,
@@ -179,7 +176,6 @@
 			files = (
 				A090784127FB23B1008A8201 /* LaunchScreen.storyboard in Resources */,
 				A090783E27FB23B1008A8201 /* Assets.xcassets in Resources */,
-				A090783C27FB23AF008A8201 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,14 +199,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A090783A27FB23AF008A8201 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A090783B27FB23AF008A8201 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A090783F27FB23B1008A8201 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -348,7 +336,6 @@
 				INFOPLIST_FILE = DaumImage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -376,7 +363,6 @@
 				INFOPLIST_FILE = DaumImage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
