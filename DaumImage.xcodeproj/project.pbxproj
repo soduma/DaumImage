@@ -9,21 +9,32 @@
 /* Begin PBXBuildFile section */
 		A090783527FB23AF008A8201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783427FB23AF008A8201 /* AppDelegate.swift */; };
 		A090783727FB23AF008A8201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783627FB23AF008A8201 /* SceneDelegate.swift */; };
-		A090783927FB23AF008A8201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783827FB23AF008A8201 /* ViewController.swift */; };
+		A090783927FB23AF008A8201 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090783827FB23AF008A8201 /* ImageViewController.swift */; };
 		A090783C27FB23AF008A8201 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A090783A27FB23AF008A8201 /* Main.storyboard */; };
 		A090783E27FB23B1008A8201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A090783D27FB23B1008A8201 /* Assets.xcassets */; };
 		A090784127FB23B1008A8201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A090783F27FB23B1008A8201 /* LaunchScreen.storyboard */; };
+		A090784927FB2499008A8201 /* DaumAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090784827FB2498008A8201 /* DaumAPIResponse.swift */; };
+		A090784B27FB24AC008A8201 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090784A27FB24AC008A8201 /* NetworkManager.swift */; };
+		A090784E27FB24CB008A8201 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A090784D27FB24CB008A8201 /* Kingfisher */; };
+		A090785127FB24D6008A8201 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A090785027FB24D6008A8201 /* Alamofire */; };
+		A090785427FB2A5B008A8201 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A090785327FB2A5B008A8201 /* SnapKit */; };
+		A090785627FB2B34008A8201 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090785527FB2B34008A8201 /* ImageCollectionViewCell.swift */; };
+		A090785827FB2EF5008A8201 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090785727FB2EF5008A8201 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A090783127FB23AF008A8201 /* DaumImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A090783427FB23AF008A8201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A090783627FB23AF008A8201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A090783827FB23AF008A8201 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A090783827FB23AF008A8201 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		A090783B27FB23AF008A8201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A090783D27FB23B1008A8201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A090784027FB23B1008A8201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A090784227FB23B1008A8201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A090784827FB2498008A8201 /* DaumAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaumAPIResponse.swift; sourceTree = "<group>"; };
+		A090784A27FB24AC008A8201 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A090785527FB2B34008A8201 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		A090785727FB2EF5008A8201 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A090785427FB2A5B008A8201 /* SnapKit in Frameworks */,
+				A090784E27FB24CB008A8201 /* Kingfisher in Frameworks */,
+				A090785127FB24D6008A8201 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +72,41 @@
 			children = (
 				A090783427FB23AF008A8201 /* AppDelegate.swift */,
 				A090783627FB23AF008A8201 /* SceneDelegate.swift */,
-				A090783827FB23AF008A8201 /* ViewController.swift */,
+				A090785A27FBF7E7008A8201 /* Model */,
+				A090785B27FBF7ED008A8201 /* Manager */,
+				A090785927FBF7A3008A8201 /* Scenes */,
 				A090783A27FB23AF008A8201 /* Main.storyboard */,
 				A090783D27FB23B1008A8201 /* Assets.xcassets */,
 				A090783F27FB23B1008A8201 /* LaunchScreen.storyboard */,
 				A090784227FB23B1008A8201 /* Info.plist */,
 			);
 			path = DaumImage;
+			sourceTree = "<group>";
+		};
+		A090785927FBF7A3008A8201 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A090785727FB2EF5008A8201 /* SearchViewController.swift */,
+				A090783827FB23AF008A8201 /* ImageViewController.swift */,
+				A090785527FB2B34008A8201 /* ImageCollectionViewCell.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A090785A27FBF7E7008A8201 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A090784827FB2498008A8201 /* DaumAPIResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A090785B27FBF7ED008A8201 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A090784A27FB24AC008A8201 /* NetworkManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +125,11 @@
 			dependencies = (
 			);
 			name = DaumImage;
+			packageProductDependencies = (
+				A090784D27FB24CB008A8201 /* Kingfisher */,
+				A090785027FB24D6008A8201 /* Alamofire */,
+				A090785327FB2A5B008A8201 /* SnapKit */,
+			);
 			productName = DaumImage;
 			productReference = A090783127FB23AF008A8201 /* DaumImage.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +158,11 @@
 				Base,
 			);
 			mainGroup = A090782827FB23AF008A8201;
+			packageReferences = (
+				A090784C27FB24CB008A8201 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				A090784F27FB24D6008A8201 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A090785227FB2A5B008A8201 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = A090783227FB23AF008A8201 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,7 +190,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A090783927FB23AF008A8201 /* ViewController.swift in Sources */,
+				A090784927FB2499008A8201 /* DaumAPIResponse.swift in Sources */,
+				A090785827FB2EF5008A8201 /* SearchViewController.swift in Sources */,
+				A090783927FB23AF008A8201 /* ImageViewController.swift in Sources */,
+				A090785627FB2B34008A8201 /* ImageCollectionViewCell.swift in Sources */,
+				A090784B27FB24AC008A8201 /* NetworkManager.swift in Sources */,
 				A090783527FB23AF008A8201 /* AppDelegate.swift in Sources */,
 				A090783727FB23AF008A8201 /* SceneDelegate.swift in Sources */,
 			);
@@ -358,6 +414,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A090784C27FB24CB008A8201 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		A090784F27FB24D6008A8201 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		A090785227FB2A5B008A8201 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A090784D27FB24CB008A8201 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A090784C27FB24CB008A8201 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		A090785027FB24D6008A8201 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A090784F27FB24D6008A8201 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		A090785327FB2A5B008A8201 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A090785227FB2A5B008A8201 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A090782927FB23AF008A8201 /* Project object */;
 }
