@@ -10,23 +10,20 @@ import Kingfisher
 import SnapKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    private lazy var photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    private let photoImageView = UIImageView()
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.addSubview(photoImageView)
+        addSubview(photoImageView)
+        photoImageView.contentMode = .scaleAspectFill
         photoImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
-    func fetch(imageURL: String, thumbnailURL: String) {
-        guard let url = URL(string: imageURL) else { return }
+    func setImage(thumbnailURL: String) {
+        guard let url = URL(string: thumbnailURL) else { return }
         photoImageView.kf.setImage(with: url)
     }
 }
