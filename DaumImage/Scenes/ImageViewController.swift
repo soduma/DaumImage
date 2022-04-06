@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 class ImageViewController: UIViewController {
-    let networkManager = NetworkManager()
-    var imageList: [Documents] = []
-    let keyword: String
-    var currentPage = 1
-    var valueOfIsEnd = false
+    private let networkManager = NetworkManager()
+    private var imageList: [Documents] = []
+    private let keyword: String
+    private var currentPage = 0
+    private var valueOfIsEnd = false
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,6 +35,7 @@ class ImageViewController: UIViewController {
         label.text = "검색 결과가 없습니다. 🥺"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.backgroundColor = .systemBackground
         return label
     }()
@@ -54,9 +55,15 @@ class ImageViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         Task {
-            await fetch()
             layout()
+            await fetch()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        currentPage = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,14 +87,22 @@ class ImageViewController: UIViewController {
     }
     
     private func fetch() async {
-        let result = await networkManager.getImage(keyword: keyword, page: currentPage)
-        print(result)
+        currentPage += 1
+        let data = await networkManager.getImage(keyword: keyword, page: currentPage)
+        print(data)
         
-        if result.documents.count == 0 {
+        switch data {
+        case .success(let result):
+            if result.documents.count == 0 {
+                emptyLabel.isHidden = false
+            } else {
+                imageList += result.documents
+                valueOfIsEnd = result.meta.isEnd
+                collectionView.reloadData()
+            }
+        case .failure(let error):
+            emptyLabel.text = error.localizedDescription
             emptyLabel.isHidden = false
-        } else {
-            imageList = result.documents
-            valueOfIsEnd = result.meta.isEnd
         }
     }
 }
@@ -126,13 +141,8 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
             Task {
                 if valueOfIsEnd == false {
-                    let result = await networkManager.getImage(keyword: keyword, page: currentPage)
-                    
-                    imageList += result.documents
-                    valueOfIsEnd = result.meta.isEnd
-                    collectionView.reloadData()
+                    await fetch()
                 } else {
-//                    print(valueOfIsEnd)
                     return
                 }
             }

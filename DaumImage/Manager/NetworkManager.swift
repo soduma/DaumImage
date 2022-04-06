@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 struct NetworkManager {
-    func getImage(keyword: String, page: Int) async -> DaumAPIResponse {
+    func getImage(keyword: String, page: Int) async -> Result<DaumAPIResponse, AFError> {
         let url = "https://dapi.kakao.com/v2/search/image?size=30&page=\(page)&query=\(keyword)"
         let urlString = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         
@@ -17,8 +17,8 @@ struct NetworkManager {
             "Authorization": "KakaoAK ef58731412161dc5c57435378c32bdc9"
         ]
         
-        let data = try! await AF.request(urlString, method: .get, headers: header)
-            .serializingDecodable(DaumAPIResponse.self).value
+        let data = await AF.request(urlString, method: .get, headers: header)
+            .serializingDecodable(DaumAPIResponse.self).result
         return data
     }
 }
