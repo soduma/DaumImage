@@ -10,23 +10,34 @@ import SnapKit
 
 class ImageViewController: UIViewController {
     let networkManager = NetworkManager()
-    var imageList: [Documents]?
+    var imageList: [Documents] = []
     let keyword: String
     var currentPage = 1
+    var valueOfIsEnd = false
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let width = view.bounds.width / 3
+        let width = view.bounds.width / 3 - 2
         layout.itemSize = CGSize(width: width, height: width)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-//        layout.sectionInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = .systemBackground
         return collectionView
+    }()
+    
+    private lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "검색 결과가 없습니다. 🥺"
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .center
+        label.backgroundColor = .systemBackground
+        return label
     }()
     
     init(keyword: String) {
@@ -41,38 +52,92 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        layout()
-        
+        view.backgroundColor = .systemBackground
+
         Task {
             await fetch()
+            layout()
         }
     }
     
-    func layout() {
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        emptyLabel.isHidden = true
+    }
+    
+    private func layout() {
+        [collectionView, emptyLabel]
+            .forEach { view.addSubview($0) }
+        
+        emptyLabel.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
     
-    func fetch() async {
+    private func fetch() async {
         let result = await networkManager.getImage(keyword: keyword, page: currentPage)
-        imageList = result
-        if let imageList = imageList {
-            print(imageList)
+        print(result)
+        
+        if result.documents.count == 0 {
+            emptyLabel.isHidden = false
+        } else {
+            imageList = result.documents
+            valueOfIsEnd = result.meta.isEnd
         }
     }
 }
 
 extension ImageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        print("😄\( imageList.count)")
+        return imageList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .brown
-//        cell.layer.cornerRadius = 4
+        
+        let image = imageList[indexPath.row].thumbnailURL
+        cell.setImage(thumbnailURL: image)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let imageURL = imageList[indexPath.row].imageURL
+        let datetime = imageList[indexPath.row].datetime
+        let displaySiteName = imageList[indexPath.row].displaySiteName
+        let vc = DetailImageViewController(imageString: imageURL, datetime: datetime, displaySiteName: displaySiteName)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset_y = scrollView.contentOffset.y
+        let collectionViewContentSize = collectionView.contentSize.height
+        let pagination_y = collectionViewContentSize * 0.5
+
+        if contentOffset_y > collectionViewContentSize - pagination_y {
+            currentPage += 1
+
+            Task {
+                if valueOfIsEnd == false {
+                    let result = await networkManager.getImage(keyword: keyword, page: currentPage)
+                    
+                    imageList += result.documents
+                    valueOfIsEnd = result.meta.isEnd
+                    collectionView.reloadData()
+                } else {
+//                    print(valueOfIsEnd)
+                    valueOfIsEnd = true
+                    return
+                }
+            }
+        }
     }
 }
