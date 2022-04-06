@@ -17,14 +17,13 @@ class ImageViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let width = view.bounds.width / 3 - 2
-        layout.itemSize = CGSize(width: width, height: width)
+        let width = view.bounds.width / 3 - 0.75
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 1
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1)
+        layout.itemSize = CGSize(width: width, height: width)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "ImageCollectionViewCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
@@ -100,7 +99,7 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
         
         let image = imageList[indexPath.row].thumbnailURL
         cell.setImage(thumbnailURL: image)
@@ -134,7 +133,6 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
                     collectionView.reloadData()
                 } else {
 //                    print(valueOfIsEnd)
-                    valueOfIsEnd = true
                     return
                 }
             }
