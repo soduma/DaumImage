@@ -34,7 +34,7 @@ class SearchViewController: UIViewController {
         layout()
     }
     
-    @objc func timerCheck() {
+    @objc func searchLogic() {
         if timer.userInfo != nil {
             guard let searchText = timer.userInfo as? String,
                   searchText != "" else { return }
@@ -64,6 +64,6 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 //        print(searchText)
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCheck), userInfo: searchText, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(searchLogic), userInfo: searchText, repeats: false)
     }
 }
