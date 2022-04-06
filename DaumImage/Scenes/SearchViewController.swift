@@ -36,7 +36,8 @@ class SearchViewController: UIViewController {
     
     @objc func timerCheck() {
         if timer.userInfo != nil {
-            guard let searchText = timer.userInfo as? String else { return }
+            guard let searchText = timer.userInfo as? String,
+                  searchText != "" else { return }
             print("gdgd\(searchText)")
             navigationController?.pushViewController(ImageViewController(keyword: searchText), animated: true)
         }
