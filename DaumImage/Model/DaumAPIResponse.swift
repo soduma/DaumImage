@@ -9,6 +9,7 @@ import Foundation
 
 struct DaumAPIResponse: Codable {
     let documents: [Documents]
+    let meta: Meta
 }
 
 struct Documents: Codable {
@@ -22,5 +23,13 @@ struct Documents: Codable {
         case displaySiteName = "display_sitename"
         case imageURL = "image_url"
         case thumbnailURL = "thumbnail_url"
+    }
+}
+
+struct Meta: Codable {
+    let isEnd: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case isEnd = "is_end"
     }
 }
