@@ -10,13 +10,16 @@ import Kingfisher
 import SnapKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    private let photoImageView = UIImageView()
+    private lazy var photoImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+                
         addSubview(photoImageView)
-        photoImageView.contentMode = .scaleAspectFill
         photoImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

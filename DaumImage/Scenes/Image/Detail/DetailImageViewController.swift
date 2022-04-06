@@ -74,7 +74,9 @@ class DetailImageViewController: UIViewController {
     @objc func tapCloseButton() {
         dismiss(animated: true)
     }
-    
+}
+
+extension DetailImageViewController {
     private func layout() {
         view.backgroundColor = .black
         scrollView.backgroundColor = .black

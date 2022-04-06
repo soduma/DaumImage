@@ -10,7 +10,7 @@ import SnapKit
 import SwiftUI
 
 class SearchViewController: UIViewController {
-    var timer = Timer()
+    private var timer = Timer()
     
     private lazy var searchLabel: UILabel = {
         let label = UILabel()
@@ -38,7 +38,8 @@ class SearchViewController: UIViewController {
         if timer.userInfo != nil {
             guard let searchText = timer.userInfo as? String,
                   searchText != "" else { return }
-            print("gdgd\(searchText)")
+            
+//            print("\(searchText)")
             navigationController?.pushViewController(ImageViewController(keyword: searchText), animated: true)
         }
         timer.invalidate()

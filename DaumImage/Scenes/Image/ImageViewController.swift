@@ -52,27 +52,24 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-
         Task {
             layout()
             await fetch()
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        currentPage = 0
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         emptyLabel.isHidden = true
+        currentPage = 0
     }
-    
+}
+
+extension ImageViewController {
     private func layout() {
+        view.backgroundColor = .systemBackground
+        
         [collectionView, emptyLabel]
             .forEach { view.addSubview($0) }
         
@@ -128,7 +125,7 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let displaySiteName = imageList[indexPath.row].displaySiteName
         let vc = DetailImageViewController(imageString: imageURL, datetime: datetime, displaySiteName: displaySiteName)
         vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        present(vc, animated: false)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -142,8 +139,6 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
             Task {
                 if valueOfIsEnd == false {
                     await fetch()
-                } else {
-                    return
                 }
             }
         }
