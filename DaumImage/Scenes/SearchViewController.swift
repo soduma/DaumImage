@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 
 class SearchViewController: UIViewController {
     private var timer = Timer()
@@ -15,7 +14,7 @@ class SearchViewController: UIViewController {
     private lazy var searchLabel: UILabel = {
         let label = UILabel()
         label.text = "Brandi"
-        label.font = .systemFont(ofSize: 180, weight: .bold)
+        label.font = .systemFont(ofSize: 150, weight: .bold)
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
@@ -38,19 +37,24 @@ class SearchViewController: UIViewController {
         if timer.userInfo != nil {
             guard let searchText = timer.userInfo as? String,
                   searchText != "" else { return }
-            
-//            print("\(searchText)")
             navigationController?.pushViewController(ImageViewController(keyword: searchText), animated: true)
         }
         timer.invalidate()
     }
     
+    @objc func tapBack() {
+        searchBar.resignFirstResponder()
+    }
+    
     private func layout() {
+        let backGesture = UITapGestureRecognizer(target: self, action: #selector(tapBack))
+        view.addGestureRecognizer(backGesture)
+
         [searchLabel, searchBar]
             .forEach { view.addSubview($0) }
         
         searchLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.centerY.equalToSuperview().dividedBy(1.5)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -63,7 +67,6 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        print(searchText)
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(searchLogic), userInfo: searchText, repeats: false)
     }

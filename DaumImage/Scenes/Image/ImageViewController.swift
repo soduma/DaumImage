@@ -23,7 +23,7 @@ class ImageViewController: UIViewController {
         layout.itemSize = CGSize(width: width, height: width)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "ImageCollectionViewCell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
@@ -86,7 +86,6 @@ extension ImageViewController {
     private func fetch() async {
         currentPage += 1
         let data = await networkManager.getImage(keyword: keyword, page: currentPage)
-        print(data)
         
         switch data {
         case .success(let result):
@@ -99,8 +98,18 @@ extension ImageViewController {
             }
         case .failure(let error):
             emptyLabel.text = error.localizedDescription
-            emptyLabel.isHidden = false
         }
+    }
+    
+    private func newDate(dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        guard let date = dateFormatter.date(from: dateString) else { return dateString }
+        
+        let newDate = DateFormatter()
+        newDate.locale = Locale(identifier: "ko_kr")
+        newDate.dateFormat = "yyyy-MM-dd a hh:mm"
+        return newDate.string(from: date)
     }
 }
 
@@ -111,7 +120,7 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
         
         let image = imageList[indexPath.row].thumbnailURL
         cell.setImage(thumbnailURL: image)
@@ -122,8 +131,9 @@ extension ImageViewController: UICollectionViewDataSource, UICollectionViewDeleg
         print(indexPath.row)
         let imageURL = imageList[indexPath.row].imageURL
         let datetime = imageList[indexPath.row].datetime
+        let newDate = newDate(dateString: datetime)
         let displaySiteName = imageList[indexPath.row].displaySiteName
-        let vc = DetailImageViewController(imageString: imageURL, datetime: datetime, displaySiteName: displaySiteName)
+        let vc = DetailImageViewController(imageString: imageURL, datetime: newDate, displaySiteName: displaySiteName)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: false)
     }

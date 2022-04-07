@@ -11,7 +11,7 @@ import SnapKit
 
 class DetailImageViewController: UIViewController {
     private var imageString: String
-    private let datetime: String
+    private var datetime: String
     private let displaySiteName: String
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -20,6 +20,7 @@ class DetailImageViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -107,16 +108,14 @@ extension DetailImageViewController {
             $0.width.height.equalTo(30)
         }
         
-        if siteLabel.text != "" && timeLabel.text != "" {
-            let stackView = UIStackView(arrangedSubviews: [siteLabel, timeLabel])
-            stackView.axis = .vertical
-            stackView.distribution = .fillEqually
-            stackView.backgroundColor = .systemGray6
-            
-            detailImageView.addSubview(stackView)
-            stackView.snp.makeConstraints {
-                $0.bottom.leading.equalTo(detailImageView)
-            }
+        let stackView = UIStackView(arrangedSubviews: [siteLabel, timeLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.backgroundColor = .systemGray6
+        
+        detailImageView.addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.bottom.leading.equalTo(detailImageView)
         }
     }
     
